@@ -1,8 +1,10 @@
 import 'package:app_learning_bloc/app_bloc.dart';
 import 'package:app_learning_bloc/app_events.dart';
 import 'package:app_learning_bloc/app_states.dart';
+import 'package:app_learning_bloc/pages/welcome/welcome.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,43 +16,24 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => AppBloc(),
-      child: const MaterialApp(
-        debugShowCheckedModeBanner: true,
-        home: MyHomePage(title: 'Belajar bloc'),
-      ),
-    );
+        create: (context) => AppBloc(),
+        child: ScreenUtilInit(
+          builder: (context, child) => const MaterialApp(
+            debugShowCheckedModeBanner: true,
+            home: Welcome(),
+          ),
+        ));
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _decrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
+class MyHomePage extends StatelessWidget {
+  const MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: const Text('Belajar Bloc'),
       ),
       body: Center(
           child: BlocBuilder<AppBloc, AppStates>(builder: (context, state) {
@@ -76,12 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Icon(Icons.add),
           ),
           FloatingActionButton(
-            onPressed: () => BlocProvider.of<AppBloc>(context).add(Decrement()),
+            onPressed: () => BlocProvider.of<AppBloc>(context).add(Increment()),
             tooltip: 'Increment',
             child: const Icon(Icons.remove),
           ),
         ],
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
