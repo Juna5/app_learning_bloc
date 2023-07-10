@@ -1,3 +1,4 @@
+import 'package:app_learning_bloc/main.dart';
 import 'package:app_learning_bloc/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:app_learning_bloc/pages/welcome/bloc/welcome_events.dart';
 import 'package:app_learning_bloc/pages/welcome/bloc/welcome_states.dart';
@@ -14,6 +15,8 @@ class Welcome extends StatefulWidget {
 }
 
 class _WelcomeState extends State<Welcome> {
+  PageController pageController = PageController(initialPage: 0);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,6 +31,7 @@ class _WelcomeState extends State<Welcome> {
                 alignment: Alignment.topCenter,
                 children: [
                   PageView(
+                    controller: pageController,
                     onPageChanged: (index) {
                       state.page = index;
                       BlocProvider.of<WelcomeBloc>(context).add(WelcomeEvent());
@@ -39,7 +43,7 @@ class _WelcomeState extends State<Welcome> {
                         "Next",
                         "First see Learning",
                         "Forget about a for of paper all knowladge in on learning",
-                        "image",
+                        "assets/images/reading.png",
                       ),
                       _page(
                         2,
@@ -47,15 +51,15 @@ class _WelcomeState extends State<Welcome> {
                         "Next",
                         "Connect With Everyono",
                         "Always keep in touch with your tutor & friend. Let's get connected",
-                        "image",
+                        "assets/images/boy.png",
                       ),
                       _page(
-                        2,
+                        3,
                         context,
                         "Get Started",
                         "Always Fascinated Learning",
                         "Anywhere, anytime. The time is at our discrting so study whenver you want",
-                        "image",
+                        "assets/images/man.png",
                       ),
                     ],
                   ),
@@ -65,12 +69,14 @@ class _WelcomeState extends State<Welcome> {
                       position: state.page,
                       dotsCount: 3,
                       decorator: DotsDecorator(
-                          activeColor: Colors.blue,
-                          color: Colors.grey,
-                          size: const Size.square(8.0),
-                          activeSize: const Size(10.0, 8.0),
-                          activeShape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(5.0))),
+                        activeColor: Colors.blue,
+                        color: Colors.grey,
+                        size: const Size.square(8.0),
+                        activeSize: const Size(15.0, 8.0),
+                        activeShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                      ),
                     ),
                   )
                 ],
@@ -81,78 +87,102 @@ class _WelcomeState extends State<Welcome> {
       ),
     );
   }
-}
 
-Widget _page(
-  int index,
-  BuildContext context,
-  String buttonName,
-  String title,
-  String subTitle,
-  String imagePath,
-) {
-  return Column(
-    children: [
-      SizedBox(
-        width: 345.w,
-        height: 345.h,
-        child: const Text('page 1'),
-      ),
-      Container(
-        child: Text(
-          title,
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 24.sp,
-            fontWeight: FontWeight.normal,
+  Widget _page(
+    int index,
+    BuildContext context,
+    String buttonName,
+    String title,
+    String subTitle,
+    String imagePath,
+  ) {
+    return Column(
+      children: [
+        SizedBox(
+          width: 345.w,
+          height: 345.h,
+          child: Image.asset(
+            imagePath,
+            fit: BoxFit.contain,
           ),
         ),
-      ),
-      Container(
-        width: 375.w,
-        padding: EdgeInsets.only(left: 30.w, right: 30.w),
-        child: Text(
-          subTitle,
-          style: TextStyle(
-            color: Colors.black.withOpacity(0.5),
-            fontSize: 14.sp,
-            fontWeight: FontWeight.normal,
-          ),
-        ),
-      ),
-      Container(
-        margin: EdgeInsets.only(
-          top: 100.h,
-          left: 25.h,
-          right: 25.h,
-        ),
-        width: 325.w,
-        height: 50.h,
-        decoration: BoxDecoration(
-          color: Colors.blue,
-          borderRadius: BorderRadius.all(
-            Radius.circular(15.w),
-          ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 1,
-              blurRadius: 2,
-              offset: const Offset(0, 1),
-            )
-          ],
-        ),
-        child: Center(
+        Container(
           child: Text(
-            buttonName,
+            title,
             style: TextStyle(
-              color: Colors.white,
+              color: Colors.black,
+              fontSize: 24.sp,
+              fontWeight: FontWeight.normal,
+            ),
+          ),
+        ),
+        Container(
+          width: 375.w,
+          padding: EdgeInsets.only(left: 30.w, right: 30.w),
+          child: Text(
+            subTitle,
+            style: TextStyle(
+              color: Colors.black.withOpacity(0.5),
               fontSize: 14.sp,
               fontWeight: FontWeight.normal,
             ),
           ),
         ),
-      )
-    ],
-  );
+        GestureDetector(
+          onTap: () {
+            print(index);
+            if (index < 3) {
+              pageController.animateToPage(
+                index,
+                duration: const Duration(milliseconds: 500),
+                curve: Curves.easeIn,
+              );
+            } else {
+              // Navigator.of(context).push(
+              //   MaterialPageRoute(
+              //     builder: (context) => const MyHomePage(),
+              //   ),
+              // );
+
+              Navigator.of(context)
+                  .pushNamedAndRemoveUntil("myHomePage", (route) => false);
+            }
+          },
+          child: Container(
+            margin: EdgeInsets.only(
+              top: 100.h,
+              left: 25.w,
+              right: 25.w,
+            ),
+            width: 325.w,
+            height: 50.h,
+            decoration: BoxDecoration(
+              color: Colors.blue,
+              borderRadius: BorderRadius.all(
+                Radius.circular(15.w),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 1,
+                  blurRadius: 2,
+                  offset: const Offset(0, 1),
+                )
+              ],
+            ),
+            child: Center(
+              child: Text(
+                buttonName,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }

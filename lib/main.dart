@@ -16,12 +16,22 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-        create: (context) => WelcomeBloc(),
+    return MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            // lazy: false,
+            create: (context) => WelcomeBloc(),
+          ),
+          BlocProvider(
+            // lazy: true,
+            create: (context) => AppBloc(),
+          ),
+        ],
         child: ScreenUtilInit(
-          builder: (context, child) => const MaterialApp(
+          builder: (context, child) => MaterialApp(
             debugShowCheckedModeBanner: true,
-            home: Welcome(),
+            home: const Welcome(),
+            routes: {"myHomePage": (context) => const MyHomePage()},
           ),
         ));
   }
@@ -55,13 +65,15 @@ class MyHomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           FloatingActionButton(
+            heroTag: "HeroTag1",
             onPressed: () => BlocProvider.of<AppBloc>(context).add(Increment()),
             tooltip: 'Increment',
             child: const Icon(Icons.add),
           ),
           FloatingActionButton(
-            onPressed: () => BlocProvider.of<AppBloc>(context).add(Increment()),
-            tooltip: 'Increment',
+            heroTag: "HeroTag2",
+            onPressed: () => BlocProvider.of<AppBloc>(context).add(Decrement()),
+            tooltip: 'Decrement',
             child: const Icon(Icons.remove),
           ),
         ],
