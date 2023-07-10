@@ -1,6 +1,7 @@
 import 'package:app_learning_bloc/app_bloc.dart';
 import 'package:app_learning_bloc/app_events.dart';
 import 'package:app_learning_bloc/app_states.dart';
+import 'package:app_learning_bloc/pages/sign_in/sign_in.dart';
 import 'package:app_learning_bloc/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:app_learning_bloc/pages/welcome/welcome.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,10 @@ class MyApp extends StatelessWidget {
           builder: (context, child) => MaterialApp(
             debugShowCheckedModeBanner: true,
             home: const Welcome(),
-            routes: {"myHomePage": (context) => const MyHomePage()},
+            routes: {
+              "myHomePage": (context) => const MyHomePage(),
+              'signIn': (context) => const SignIn(),
+            },
           ),
         ));
   }
