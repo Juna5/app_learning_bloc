@@ -30,7 +30,13 @@ class MyApp extends StatelessWidget {
         ],
         child: ScreenUtilInit(
           builder: (context, child) => MaterialApp(
-            debugShowCheckedModeBanner: true,
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              appBarTheme: const AppBarTheme(
+                elevation: 0,
+                backgroundColor: Colors.white,
+              ),
+            ),
             home: const Welcome(),
             routes: {
               "myHomePage": (context) => const MyHomePage(),
