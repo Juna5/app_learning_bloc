@@ -1,4 +1,6 @@
-import 'package:app_learning_bloc/main.dart';
+import 'package:app_learning_bloc/common/values/colors.dart';
+import 'package:app_learning_bloc/common/values/constant.dart';
+import 'package:app_learning_bloc/global.dart';
 import 'package:app_learning_bloc/pages/welcome/bloc/welcome_blocs.dart';
 import 'package:app_learning_bloc/pages/welcome/bloc/welcome_events.dart';
 import 'package:app_learning_bloc/pages/welcome/bloc/welcome_states.dart';
@@ -69,8 +71,8 @@ class _WelcomeState extends State<Welcome> {
                       position: state.page,
                       dotsCount: 3,
                       decorator: DotsDecorator(
-                        activeColor: Colors.blue,
-                        color: Colors.grey,
+                        color: AppColors.primaryThirdElementText,
+                        activeColor: AppColors.primaryElement,
                         size: const Size.square(8.0),
                         activeSize: const Size(15.0, 8.0),
                         activeShape: RoundedRectangleBorder(
@@ -110,7 +112,7 @@ class _WelcomeState extends State<Welcome> {
           child: Text(
             title,
             style: TextStyle(
-              color: Colors.black,
+              color: AppColors.primaryText,
               fontSize: 24.sp,
               fontWeight: FontWeight.normal,
             ),
@@ -122,7 +124,7 @@ class _WelcomeState extends State<Welcome> {
           child: Text(
             subTitle,
             style: TextStyle(
-              color: Colors.black.withOpacity(0.5),
+              color: AppColors.primarySecondaryElementText,
               fontSize: 14.sp,
               fontWeight: FontWeight.normal,
             ),
@@ -143,7 +145,9 @@ class _WelcomeState extends State<Welcome> {
               //     builder: (context) => const MyHomePage(),
               //   ),
               // );
-
+              Global.storageService
+                  .setBool(AppConstants.STORAGE_DEVICE_OPEN_FIRST_TIME, true);
+              print(Global.storageService.getDeviceFirstOpen());
               Navigator.of(context)
                   .pushNamedAndRemoveUntil("signIn", (route) => false);
             }
@@ -157,7 +161,7 @@ class _WelcomeState extends State<Welcome> {
             width: 325.w,
             height: 50.h,
             decoration: BoxDecoration(
-              color: Colors.blue,
+              color: AppColors.primaryElement,
               borderRadius: BorderRadius.all(
                 Radius.circular(15.w),
               ),
