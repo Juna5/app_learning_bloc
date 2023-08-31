@@ -31,8 +31,9 @@ class _SignInState extends State<SignIn> {
                     children: [
                       buildThirdPartyLogin(context),
                       Center(
-                          child: reusableText(
-                              'Or use your email account to login')),
+                        child:
+                            reusableText('Or use your email account to login'),
+                      ),
                       Container(
                         margin: EdgeInsets.only(top: 66.h),
                         padding: EdgeInsets.only(left: 22.w, right: 25.w),
@@ -67,6 +68,7 @@ class _SignInState extends State<SignIn> {
                         ),
                       ),
                       forgotPassword(),
+                      SizedBox(height: 60.h),
                       buildLogInAndRegButton('Log In', 'login', () {
                         SignInController(context: context)
                             .handleSignIn('email');
