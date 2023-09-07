@@ -29,12 +29,11 @@ class SignInController {
             }
             if (!credential.user!.emailVerified) {
               toastInfo(message: 'Not Varied');
+              return;
             }
 
             var user = credential.user;
             if (user != null) {
-              print('User exist');
-
               Global.storageService.setString(
                   AppConstants.STORAGE_USER_TOKEN_KEY, '123123123123');
 

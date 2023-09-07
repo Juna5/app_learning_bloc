@@ -93,6 +93,7 @@ Widget buildTextField(String hintText, String textType, String iconName,
             onChanged: (value) => func!(value),
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
+              contentPadding: const EdgeInsets.fromLTRB(5, 5, 0, 5),
               hintText: hintText,
               border: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.transparent),
@@ -168,7 +169,7 @@ Widget buildLogInAndRegButton(
           BoxShadow(
             spreadRadius: 1,
             blurRadius: 2,
-            offset: Offset(0, 1),
+            offset: const Offset(0, 1),
             color: Colors.grey.withOpacity(0.1),
           )
         ],
