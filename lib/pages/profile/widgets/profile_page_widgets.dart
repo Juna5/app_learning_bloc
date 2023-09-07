@@ -1,5 +1,6 @@
 import 'package:app_learning_bloc/common/routes/routes.dart';
 import 'package:app_learning_bloc/common/values/colors.dart';
+import 'package:app_learning_bloc/common/witgets/base_text_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -15,14 +16,7 @@ AppBar buildAppBar() {
             height: 12.h,
             child: Image.asset("assets/icons/menu.png"),
           ),
-          Text(
-            'Profile',
-            style: TextStyle(
-              color: AppColors.primaryText,
-              fontWeight: FontWeight.bold,
-              fontSize: 16.sp,
-            ),
-          ),
+          reusableText('Profile'),
           GestureDetector(
             child: Container(
               width: 24.w,

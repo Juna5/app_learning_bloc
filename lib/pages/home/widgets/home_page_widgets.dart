@@ -1,4 +1,5 @@
 import 'package:app_learning_bloc/common/values/colors.dart';
+import 'package:app_learning_bloc/common/witgets/base_text_widget.dart';
 import 'package:app_learning_bloc/pages/home/bloc/home_page_blocs.dart';
 import 'package:app_learning_bloc/pages/home/bloc/home_page_events.dart';
 import 'package:app_learning_bloc/pages/home/bloc/home_page_states.dart';
@@ -186,9 +187,9 @@ Widget menuView() {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            _reusableText('Choose your course'),
+            reusableText('Choose your course'),
             GestureDetector(
-              child: _reusableText(
+              child: reusableText(
                 'See all',
                 color: AppColors.primaryThirdElementText,
                 fontSize: 10,
@@ -215,20 +216,6 @@ Widget menuView() {
   );
 }
 
-Widget _reusableText(String label,
-    {Color color = AppColors.primaryText,
-    int fontSize = 16,
-    FontWeight fontWeight = FontWeight.bold}) {
-  return Text(
-    label,
-    style: TextStyle(
-      color: color,
-      fontWeight: fontWeight,
-      fontSize: fontSize.sp,
-    ),
-  );
-}
-
 Widget _reusableMenuText(String menuText,
     {Color textColor = AppColors.primaryElementText,
     Color bgColor = AppColors.primaryElement}) {
@@ -240,7 +227,7 @@ Widget _reusableMenuText(String menuText,
       borderRadius: BorderRadius.circular(7.w),
       border: Border.all(color: bgColor),
     ),
-    child: _reusableText(
+    child: reusableText(
       menuText,
       color: textColor,
       fontWeight: FontWeight.normal,
