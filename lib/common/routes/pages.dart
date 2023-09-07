@@ -4,6 +4,8 @@ import 'package:app_learning_bloc/pages/application/application_page.dart';
 import 'package:app_learning_bloc/pages/application/bloc/app_bloc.dart';
 import 'package:app_learning_bloc/pages/home/bloc/home_page_blocs.dart';
 import 'package:app_learning_bloc/pages/home/home_page.dart';
+import 'package:app_learning_bloc/pages/profile/settings/bloc/settings_page_blocs.dart';
+import 'package:app_learning_bloc/pages/profile/settings/settings_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:app_learning_bloc/common/routes/names.dart';
@@ -41,6 +43,11 @@ class AppPages {
         route: AppRoutes.HOME_PAGE,
         page: const HomePage(),
         bloc: BlocProvider(create: (_) => HomePageBlocs()),
+      ),
+      PageEntity(
+        route: AppRoutes.SETTINGS,
+        page: const SettingsPage(),
+        bloc: BlocProvider(create: (_) => SettingsBlocs()),
       )
     ];
   }
