@@ -1,10 +1,14 @@
+import 'package:app_learning_bloc/common/apis/user_api.dart';
+import 'package:app_learning_bloc/common/entities/entities.dart';
 import 'package:app_learning_bloc/common/values/constant.dart';
 import 'package:app_learning_bloc/common/witgets/flutter_toast.dart';
 import 'package:app_learning_bloc/global.dart';
 import 'package:app_learning_bloc/pages/sign_in/bloc/sign_in_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 class SignInController {
   final BuildContext context;
@@ -34,11 +38,25 @@ class SignInController {
 
             var user = credential.user;
             if (user != null) {
-              Global.storageService.setString(
-                  AppConstants.STORAGE_USER_TOKEN_KEY, '123123123123');
+              String? displayName = user.displayName;
+              String? email = user.email;
+              String? id = user.uid;
+              String? photoUrl = user.photoURL;
 
-              Navigator.of(context)
-                  .pushNamedAndRemoveUntil('/application', (route) => false);
+              LoginRequestEntity loginRequestEntity = LoginRequestEntity();
+              loginRequestEntity.name = displayName;
+              loginRequestEntity.email = email;
+              loginRequestEntity.open_id = id;
+              loginRequestEntity.open_id = id;
+
+              //1 login with email
+              loginRequestEntity.type = 1;
+              asyncPostAllData(loginRequestEntity);
+              // Global.storageService.setString(
+              //     AppConstants.STORAGE_USER_TOKEN_KEY, '123123123123');
+
+              // Navigator.of(context)
+              //     .pushNamedAndRemoveUntil('/application', (route) => false);
             } else {
               toastInfo(message: 'User tidak ada!');
               return;
@@ -60,4 +78,13 @@ class SignInController {
       print('error => ${e.toString()}');
     }
   }
+}
+
+void asyncPostAllData(LoginRequestEntity loginRequestEntity) async {
+  // EasyLoading.show(
+  //   indicator: CircularProgressIndicator(),
+  //   maskType: EasyLoadingMaskType.clear,
+  //   dismissOnTap: true,
+  // );
+  var result = await UserApi.login(params: LoginRequestEntity());
 }

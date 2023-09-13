@@ -36,6 +36,8 @@ BottomNavigationBarItem buildBottomNavigationBarItem(
     activeIcon: Image.asset(
       'assets/icons/${iconName}.png',
       color: AppColors.primaryElement,
+      width: 20.w,
+      height: 20.h,
     ),
   );
 }
